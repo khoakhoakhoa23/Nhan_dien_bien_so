@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Bãi Xe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Hệ Thống Quản Lý Bãi Xe</h1>
+
+        <div class="camera-section">
+            <div class="camera-container">
+                <h2>Xe Vào Bãi</h2>
+                <img id="entry-camera" src="" alt="Camera xe vào" width="400">
+                <button id="capture-entry">Chụp & Nhận diện (Xe vào)</button>
+                <p id="entry-result"></p>
+            </div>
+            <div class="camera-container">
+                <h2>Xe Ra Bãi</h2>
+                <img id="exit-camera" src="" alt="Camera xe ra" width="400">
+                <button id="capture-exit">Chụp & Nhận diện (Xe ra)</button>
+                <p id="exit-result"></p>
+            </div>
+        </div>
+
+        <div class="vehicle-list">
+            <h2>Danh sách xe trong bãi</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Biển số</th>
+                        <th>Thời gian vào</th>
+                        <th>Ảnh</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vehicle in vehicles %}
+                    <tr>
+                        <td>{{ vehicle.license_plate }}</td>
+                        <td>{{ vehicle.entry_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td><img src="{{ url_for('static', filename='images/' + vehicle.image_path.split('/')[-1]) }}" alt="Vehicle" style="width: 100px;"></td>
+                        <td>Trong bãi</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
